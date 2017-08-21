@@ -107,7 +107,7 @@ npm run package-win
 npm run package-linux
 ```
 
-### Source
+## Source
 
 Based on [Electron Packager tutorial](https://www.christianengvall.se/electron-packager-tutorial/).
 
