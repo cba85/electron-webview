@@ -2,6 +2,8 @@
 
 This is a simple Electron application to create a webview.
 
+![Electron webview](screenshot.png)
+
 This Electron webview application needs just these files:
 
 - `package.json` - Points to the app's main file and lists its details and dependencies.
