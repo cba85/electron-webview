@@ -134,7 +134,7 @@ For this we need a 1024x1024 png-icon, a .icns for macs and a .ico for windows. 
 
 - Go to [iConvert Icons](https://iconverticons.com/online/) and upload the PNG and the service will take care of creating the other icon-formats.
 
-- Add your files in `assets/icons`: put the `.icns` file into the `mac` folder, the pngs in the png folder and the `.icns` file in the win folder.<br>Rename the `.icns` and `.icns` files in `icon`.
+- Add your files in `assets/icons`: put the `.icns` file into the `mac` folder, the pngs in the png folder and the `.ico` file in the win folder.<br>Rename the `.icns` and `.ico` files in `icon`.
 
 #### Mac
 
