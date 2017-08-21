@@ -107,6 +107,10 @@ npm run package-win
 npm run package-linux
 ```
 
+### Source
+
+Based on [Electron Packager tutorial](https://www.christianengvall.se/electron-packager-tutorial/).
+
 ## License
 
 [MIT](LICENSE.md)
