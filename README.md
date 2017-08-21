@@ -73,7 +73,7 @@ You can activate/deactivate this topbar (deactivate by default).
     ```
 
 - Uncomment:
-    ```html
+    ```css
     #controls {
       padding: 5px;
       border-bottom: solid 1px #ccc;
