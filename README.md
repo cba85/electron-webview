@@ -1,45 +1,112 @@
-# electron-quick-start
+# Electron webview
 
-**Clone and run for a quick way to see Electron in action.**
+This is a simple Electron application to create a webview.
 
-This is a minimal Electron application based on the [Quick Start Guide](http://electron.atom.io/docs/tutorial/quick-start) within the Electron documentation.
-
-**Use this app along with the [Electron API Demos](http://electron.atom.io/#get-started) app for API code examples to help you get started.**
-
-A basic Electron application needs just these files:
+This Electron webview application needs just these files:
 
 - `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
+- `main.js` - Starts the app and creates a browser window to render website. This is the app's **main process**.
 
-You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/tutorial/quick-start).
+## Usage
 
-## To Use
-
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+To run this repository you'll need [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
 ```bash
-# Clone this repository
-git clone https://github.com/electron/electron-quick-start
-# Go into the repository
-cd electron-quick-start
 # Install dependencies
 npm install
 # Run the app
 npm start
 ```
 
-Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+### Configuration
 
-## Resources for Learning Electron
+You just need to change `path` variable in `main.js` file.
 
-- [electron.atom.io/docs](http://electron.atom.io/docs) - all of Electron's documentation
-- [electron.atom.io/community/#boilerplates](http://electron.atom.io/community/#boilerplates) - sample starter apps created by the community
-- [electron/electron-quick-start](https://github.com/electron/electron-quick-start) - a very basic starter Electron app
-- [electron/simple-samples](https://github.com/electron/simple-samples) - small applications with ideas for taking them further
-- [electron/electron-api-demos](https://github.com/electron/electron-api-demos) - an Electron app that teaches you how to use Electron
-- [hokein/electron-sample-apps](https://github.com/hokein/electron-sample-apps) - small demo apps for the various Electron APIs
+### Options
+
+In `main.js` file:
+
+- You can show the developer tools
+- You can hide the title bar of the app
+
+## Application
+
+To create a MacOS, Windows and Linux executable with an app icon, follow these instructions.
+
+### Electron app icon
+
+For this we need a 1024x1024 png-icon, a .icns for macs and a .ico for windows. For Linux we only need the pngs.
+
+- Create your app icon
+
+- Go to [iConvert Icons](https://iconverticons.com/online/) and upload the PNG and the service will take care of creating the other icon-formats.
+
+- Add your files in `assets/icons`: put the `.icns` file into the `mac` folder, the pngs in the png folder and the `.icns` file in the win folder.<br>Rename the `.icns` and `.icns` files in `icon`.
+
+#### Mac
+
+On Mac, the `.icns` icon converted with iConvert Icons doesn't work.
+
+I recommend using [Image2icon](http://www.img2icnsapp.com), an awesome free app to create and personalize icons from your pictures, available on the Mac Store.
+
+The `.icns` icon converted with Image2icon perfectly works on Mac.
+
+### Electron packager
+
+"[Electron Packager](https://github.com/electron-userland/electron-packager) is a command line tool and Node.js library that bundles Electron-based application source code with a renamed Electron executable and supporting files into folders ready for distribution."
+
+#### Install Electron packager
+
+```bash
+# for use in npm scripts
+npm install electron-packager --save-dev
+
+# for use from cli
+npm install electron-packager -g
+```
+
+#### Application name
+
+Change the `productName` in `package.json`
+
+#### Build MacOS, Windows and Linux package from the terminal
+
+MacOS
+
+```bash
+electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds
+```
+
+Windows
+
+```bash
+electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName="Electron Webview"
+```
+
+Linux (Ubuntu)
+
+```bash
+electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds
+```
+
+#### Shortcuts
+
+To make it easier to create new builds, scripts are added in `package.json`.
+
+Now you can run:
+
+```bash
+npm run package-mac
+```
+
+```bash
+npm run package-win
+```
+
+```bash
+npm run package-linux
+```
 
 ## License
 
-[CC0 1.0 (Public Domain)](LICENSE.md)
+[MIT](LICENSE.md)

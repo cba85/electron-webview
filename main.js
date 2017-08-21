@@ -3,8 +3,10 @@ const electron = require('electron')
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
+var path = require('path')
 
-const path = 'http://projets.dev';
+// Path of your website
+const url = 'https://www.github.com';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -13,8 +15,13 @@ let mainWindow
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
-  mainWindow = new BrowserWindow({width: 1024, height: 768 });
-  mainWindow.loadURL(path);
+  mainWindow = new BrowserWindow({
+    //titleBarStyle: 'hidden',
+    width: 1024,
+    height: 768,
+    icon: path.join(__dirname, 'assets/icons/png/64x64.png')
+  });
+  mainWindow.loadURL(url);
   //mainWindow.openDevTools();
 });
 
