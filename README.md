@@ -37,7 +37,7 @@ This webview is responsive and supports live dimensions change of the window.
 
 If you want to change the window dimensions at the start:
 
-- Change `width` and `height` in `main.js`
+- Change `width` and `height` in `main.js` file
 
 ### Topbar (home button)
 
@@ -100,6 +100,17 @@ You can activate/deactivate this topbar (deactivate by default).
       document.querySelector('webview').src = url;
     }
     ```
+
+- Uncomment:
+  ```js
+  var controls = document.querySelector('#controls');
+  var controlsHeight = controls.offsetHeight;
+  ```
+
+- Comment:
+  ```js
+  var controlsHeight = 0;
+  ```
 
 #### Deactivation
 
