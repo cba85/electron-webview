@@ -5,9 +5,6 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 var path = require('path')
 
-// Path of your website
-const url = 'https://www.github.com';
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -21,7 +18,7 @@ app.on('ready', function() {
     height: 768,
     icon: path.join(__dirname, 'assets/icons/png/64x64.png')
   });
-  mainWindow.loadURL(url);
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
   //mainWindow.openDevTools();
 });
 

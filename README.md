@@ -6,6 +6,7 @@ This Electron webview application needs just these files:
 
 - `package.json` - Points to the app's main file and lists its details and dependencies.
 - `main.js` - Starts the app and creates a browser window to render website. This is the app's **main process**.
+- `index.html` - A web page to render. This is the app's renderer process.
 
 ## Usage
 
@@ -28,6 +29,14 @@ In `main.js` file:
 
 - You can show the developer tools
 - You can hide the title bar of the app
+
+### Window dimensions and responsive
+
+This webview is responsive and supports live dimensions change of the window thanks to the style in `assets/css/style.css` file.
+
+If you want to change the window dimensions at the start:
+
+- Change `width` and `height` in `main.js`
 
 ## Application
 
