@@ -41,6 +41,10 @@ If you want to change the window dimensions at the start:
 
 - Change `width` and `height` in `main.js` file
 
+### Menu and keyboard shortcuts
+
+This webview integrates an Electron menu. It will also make standard keyboard shortcuts, like copy and paste, work on MacOS.
+
 ### Topbar (home button)
 
 A topbar to show a home button to come back to your app if your website has external links is included.
