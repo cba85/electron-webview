@@ -1,8 +1,15 @@
 <html>
     <head>
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/scripts.js"></script>
     </head>
     <body>
-        <webview id="webview" src="https://www.github.com"></webview>
+        <!-- Uncomment this if you want the topbar -->
+        <!--
+        <div id="controls">
+            <button id="home" title="Go Home">Home</button>
+        </div>
+        -->
+        <webview id="webview" src="https://www.github.com" data-home="https://www.github.com"></webview>
     </body>
 </html>

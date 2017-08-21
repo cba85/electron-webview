@@ -7,6 +7,7 @@ This Electron webview application needs just these files:
 - `package.json` - Points to the app's main file and lists its details and dependencies.
 - `main.js` - Starts the app and creates a browser window to render website. This is the app's **main process**.
 - `index.html` - A web page to render. This is the app's renderer process.
+- `assets/` - Assets for the project (style, scripts, icons)
 
 ## Usage
 
@@ -21,7 +22,7 @@ npm start
 
 ### Configuration
 
-You just need to change `path` variable in `main.js` file.
+You just need to change the `src` attribute of the `webview` in `index.html` file.
 
 ### Options
 
@@ -32,11 +33,77 @@ In `main.js` file:
 
 ### Window dimensions and responsive
 
-This webview is responsive and supports live dimensions change of the window thanks to the style in `assets/css/style.css` file.
+This webview is responsive and supports live dimensions change of the window.
 
 If you want to change the window dimensions at the start:
 
 - Change `width` and `height` in `main.js`
+
+### Topbar (home button)
+
+A topbar to show a home button to come back to your app if your website has external links is included.
+
+You can activate/deactivate this topbar (deactivate by default).
+
+#### Activation
+
+##### In `index.html`:
+
+- Uncomment:
+    ```html
+    <div id="controls">
+        <button id="home" title="Go Home">Home</button>
+    </div>
+    ```
+
+- Set the homepage of your app in the `data-home` attribute of `webview` in `index.html` file.
+
+##### In `assets/css/style.css`:
+
+- Comment:
+    ```css
+    #webview {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: inline-flex !important;
+    }
+    ```
+
+- Uncomment:
+    ```html
+    #controls {
+      padding: 5px;
+      border-bottom: solid 1px #ccc;
+      background-color: #f8f8f8;
+    }
+
+    #controls {
+      display: -webkit-flex;
+      -webit-flex-direction: column;
+    }
+    ```
+
+##### In `assets/js/scripts.js`:
+
+- Uncomment:
+    ```js
+    document.querySelector('#home').onclick = function() {
+        var attribute = document.getElementById('webview');
+        var home = attribute.getAttribute("data-home");
+        navigateTo(home);
+      };
+
+      function navigateTo(url) {
+      document.querySelector('webview').src = url;
+    }
+    ```
+
+#### Deactivation
+
+Do the opposite of what you did in the activation chapter above.
 
 ## Application
 
@@ -118,7 +185,10 @@ npm run package-linux
 
 ## Source
 
-Based on [Electron Packager tutorial](https://www.christianengvall.se/electron-packager-tutorial/).
+Based on:
+
+- [Electron Packager tutorial](https://www.christianengvall.se/electron-packager-tutorial/)
+- [Browser](https://github.com/hokein/electron-sample-apps/tree/master/webview/browser)
 
 ## License
 
