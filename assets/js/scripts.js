@@ -26,16 +26,19 @@ function doLayout() {
 
   webview.style.width = webviewWidth + 'px';
   webview.style.height = webviewHeight + 'px';
-}
 
-/* Topbar */
-/*
+  /* Topbar */
+  /*
   document.querySelector('#home').onclick = function() {
     var attribute = document.getElementById('webview');
     var home = attribute.getAttribute("data-home");
     navigateTo(home);
   };
+  */
+}
 
+/* Topbar */
+/*
   function navigateTo(url) {
   document.querySelector('webview').src = url;
 }
