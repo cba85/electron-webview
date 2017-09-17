@@ -36,6 +36,7 @@ In `main.js` file:
 ### Window dimensions and responsive
 
 This webview is responsive and supports live dimensions change of the window.
+This webview remembers the window size you have before quitting the app to use it when you open it again.
 
 If you want to change the window dimensions at the start:
 
