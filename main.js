@@ -4,6 +4,7 @@ const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 var path = require('path')
+var fs = require("fs");
 
 // Menu (for standard keyboard shortcuts)
 const {Menu} = require('electron')
@@ -91,12 +92,15 @@ let mainWindow
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
-  mainWindow = new BrowserWindow({
-    //titleBarStyle: 'hidden',
-    width: 1024,
-    height: 768,
-    icon: path.join(__dirname, 'assets/icons/png/64x64.png')
-  });
+  var initPath = path.join(app.getDataPath(), "init.json");
+  var data;
+  try {
+    data = JSON.parse(fs.readFileSync(initPath, 'utf8'));
+  }
+  catch(e) {
+  }
+
+  mainWindow = new BrowserWindow((data && data.bounds) ? data.bounds : { width: 1024, height: 768, icon: path.join(__dirname, 'assets/icons/png/64x64.png')});
   mainWindow.loadURL('file://' + __dirname + '/index.html');
   //mainWindow.openDevTools();
   const menu = Menu.buildFromTemplate(template)
@@ -105,5 +109,9 @@ app.on('ready', function() {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
-    app.quit()
+  var data = {
+    bounds: mainWindow.getBounds()
+  };
+  fs.writeFileSync(initPath, JSON.stringify(data));
+  app.quit()
 })
