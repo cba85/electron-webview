@@ -4,6 +4,7 @@ body {
 }
 
 /* No topbar */
+/*
 #webview {
   position: absolute;
   top: 0;
@@ -12,17 +13,14 @@ body {
   height: 100%;
   display: inline-flex !important;
 }
+*/
 
 /* Topbar */
-/*
+
 #controls {
   padding: 5px;
   border-bottom: solid 1px #ccc;
   background-color: #f8f8f8;
-}
-
-#controls {
   display: -webkit-flex;
   -webit-flex-direction: column;
 }
-*/

@@ -31,6 +31,7 @@ You just need to change the `src` attribute of the `webview` in `index.html` fil
 In `main.js` file:
 
 - You can show the developer tools
+  `mainWindow.openDevTools();`
 - You can hide the title bar of the app
 
 ### Window dimensions and responsive
@@ -38,9 +39,11 @@ In `main.js` file:
 This webview is responsive and supports live dimensions change of the window.
 This webview remembers the window size you have before quitting the app to use it when you open it again.
 
-If you want to change the window dimensions at the start:
+If you want to change the window dimensions at the start, change `width` and `height` in `main.js` file:
 
-- Change `width` and `height` in `main.js` file
+```js
+mainWindow = new BrowserWindow((data && data.bounds) ? data.bounds : { width: 1024, height: 768, icon: path.join(__dirname, 'assets/icons/png/64x64.png')});
+```
 
 ### Menu and keyboard shortcuts
 
@@ -50,24 +53,22 @@ This webview integrates an Electron menu. It will also make standard keyboard sh
 
 A topbar to show a home button to come back to your app if your website has external links is included.
 
-You can activate/deactivate this topbar (deactivate by default).
+You can activate/deactivate this topbar (activate by default).
 
-#### Activation
+#### Deactivation
 
 ##### In `index.html`:
 
-- Uncomment:
+- Comment:
     ```html
     <div id="controls">
         <button id="home" title="Go Home">Home</button>
     </div>
     ```
 
-- Set the homepage of your app in the `data-home` attribute of `webview` in `index.html` file.
-
 ##### In `assets/css/style.css`:
 
-- Comment:
+- Uncomment:
     ```css
     #webview {
       position: absolute;
@@ -79,15 +80,12 @@ You can activate/deactivate this topbar (deactivate by default).
     }
     ```
 
-- Uncomment:
+- Comment:
     ```css
     #controls {
       padding: 5px;
       border-bottom: solid 1px #ccc;
       background-color: #f8f8f8;
-    }
-
-    #controls {
       display: -webkit-flex;
       -webit-flex-direction: column;
     }
@@ -95,7 +93,7 @@ You can activate/deactivate this topbar (deactivate by default).
 
 ##### In `assets/js/scripts.js`:
 
-- Uncomment:
+- Comment:
     ```js
     document.querySelector('#home').onclick = function() {
         var attribute = document.getElementById('webview');
@@ -108,20 +106,21 @@ You can activate/deactivate this topbar (deactivate by default).
     }
     ```
 
-- Uncomment:
+- Comment:
   ```js
   var controls = document.querySelector('#controls');
   var controlsHeight = controls.offsetHeight;
   ```
 
-- Comment:
+- Uncomment:
   ```js
   var controlsHeight = 0;
   ```
 
-#### Deactivation
+#### Activation
 
-Do the opposite of what you did in the activation chapter above.
+- Do the opposite of what you did in the activation chapter above.
+- Set the homepage of your app in the `data-home` attribute of `webview` in `index.html` file.
 
 ## Application
 

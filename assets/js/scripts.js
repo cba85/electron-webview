@@ -14,13 +14,16 @@ function doLayout() {
   var webview = document.querySelector('webview');
   var windowWidth = document.documentElement.clientWidth;
   var windowHeight = document.documentElement.clientHeight;
+
   /* Topbar */
-  */
   var controls = document.querySelector('#controls');
   var controlsHeight = controls.offsetHeight;
-  */
+  /* End topbar */
+
   /* No topbar */
-  var controlsHeight = 0;
+  // var controlsHeight = 0;
+  /* End no topbar */
+
   var webviewWidth = windowWidth;
   var webviewHeight = windowHeight - controlsHeight;
 
@@ -28,18 +31,16 @@ function doLayout() {
   webview.style.height = webviewHeight + 'px';
 
   /* Topbar */
-  /*
   document.querySelector('#home').onclick = function() {
     var attribute = document.getElementById('webview');
     var home = attribute.getAttribute("data-home");
     navigateTo(home);
   };
-  */
+  /* End topbar */
 }
 
 /* Topbar */
-/*
   function navigateTo(url) {
   document.querySelector('webview').src = url;
 }
-*/
+/* End topbar */
