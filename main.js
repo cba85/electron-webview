@@ -94,7 +94,6 @@ let initPath;
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
   initPath = path.join(app.getPath('userData'), "init.json");
-  console.log(initPath);
   var data;
   try {
     data = JSON.parse(fs.readFileSync(initPath, 'utf8'));
@@ -102,8 +101,9 @@ app.on('ready', function() {
   catch(e) {
   }
 
-  mainWindow = new BrowserWindow((data && data.bounds) ? data.bounds : { width: 1024, height: 768, icon: path.join(__dirname, 'assets/icons/png/64x64.png')});
+  mainWindow = new BrowserWindow((data && data.bounds) ? data.bounds : { width: 1024, height: 768, icon: path.join(__dirname, 'assets/icons/png/64x64.png'), frame: false });
   mainWindow.loadURL('file://' + __dirname + '/index.html');
+  // Display Dev Tools by default
   //mainWindow.openDevTools();
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);

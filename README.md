@@ -2,6 +2,17 @@
 
 This is a simple Electron application to create a webview.
 
+Features:
+
+- Responsive window
+- Remember the window dimensions when reopening
+- Menu & keyboard shortcuts for MacOs
+- No title bar
+- Home button
+- Print function
+- MacOS, Windows and Linux executable with an app icon
+- DMG installer for Mac
+
 ![Electron webview](screenshot.png)
 
 This Electron webview application needs just these files:
@@ -24,34 +35,34 @@ $ npm start
 
 ### Configuration
 
-You just need to change the `src` attribute of the `webview` in `index.html` file.
+You just need to change the `src` attribute of the `webview` in `index.html` file to display the url you want in your webview.
 
-### Options
+### Developer tools
 
-In `main.js` file:
+You can show the developer tools by default: `mainWindow.openDevTools();`.
 
-- You can show the developer tools
-  `mainWindow.openDevTools();`
-- You can hide the title bar of the app
+### Title bar
+
+You can show the title bar of the app by setting `frame: true` when creating the window in `main.js` in `mainWindow` variable.
 
 ### Window dimensions and responsive
 
 This webview is responsive and supports live dimensions change of the window.
 This webview remembers the window size you have before quitting the app to use it when you open it again.
 
-If you want to change the window dimensions at the start, change `width` and `height` in `main.js` file:
-
-```js
-mainWindow = new BrowserWindow((data && data.bounds) ? data.bounds : { width: 1024, height: 768, icon: path.join(__dirname, 'assets/icons/png/64x64.png')});
-```
+If you want to change the window dimensions at the first start, change `width` and `height` in `main.js` file in `mainWindow` variable when creating the window.
 
 ### Menu and keyboard shortcuts
 
 This webview integrates an Electron menu. It will also make standard keyboard shortcuts, like copy and paste, work on MacOS.
 
-### Topbar (home button)
+You can modify this menu in `main.js` file.
 
-A topbar to show a home button to come back to your app if your website has external links is included.
+### Topbar (home and print buttons)
+
+A topbar to show buttons:
+- "Home" button to come back to your app if your website has external links is included.
+- "Print" button to print the current url displayed by the webview.
 
 You can activate/deactivate this topbar (activate by default).
 
@@ -60,67 +71,33 @@ You can activate/deactivate this topbar (activate by default).
 ##### In `index.html`:
 
 - Comment:
-    ```html
-    <div id="controls">
-        <button id="home" title="Go Home">Home</button>
-    </div>
-    ```
-
-##### In `assets/css/style.css`:
-
-- Uncomment:
-    ```css
-    #webview {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: inline-flex !important;
-    }
-    ```
-
-- Comment:
-    ```css
-    #controls {
-      padding: 5px;
-      border-bottom: solid 1px #ccc;
-      background-color: #f8f8f8;
-      display: -webkit-flex;
-      -webit-flex-direction: column;
-    }
-    ```
-
-##### In `assets/js/scripts.js`:
-
-- Comment:
-    ```js
-    document.querySelector('#home').onclick = function() {
-        var attribute = document.getElementById('webview');
-        var home = attribute.getAttribute("data-home");
-        navigateTo(home);
-      };
-
-      function navigateTo(url) {
-      document.querySelector('webview').src = url;
-    }
-    ```
-
-- Comment:
-  ```js
-  var controls = document.querySelector('#controls');
-  var controlsHeight = controls.offsetHeight;
+  ```html
+  <link rel="stylesheet" href="assets/css/topbar.css">
+  ```
+  ```html
+  <div id="controls">...</div>
   ```
 
 - Uncomment:
+  ```html
+  <link rel="stylesheet" href="assets/css/no-topbar.css">
+
+  <script src="assets/js/topbar.js"></script>
+  ```
+
+##### In `assets/js/webview.js`:
+
+- Comment:
   ```js
-  var controlsHeight = 0;
+  // Topbar functions
+  homeButton();
+  printButton();
   ```
 
 #### Activation
 
 - Do the opposite of what you did in the activation chapter above.
-- Set the homepage of your app in the `data-home` attribute of `webview` in `index.html` file.
+- Don't forget to set the homepage of your app in the `data-home` attribute of `webview` in `index.html` file to make the "Home" button works.
 
 ## Application
 
@@ -240,6 +217,7 @@ Based on:
 
 - [Electron Packager tutorial](https://www.christianengvall.se/electron-packager-tutorial/)
 - [Browser](https://github.com/hokein/electron-sample-apps/tree/master/webview/browser)
+- [Printing](https://github.com/hokein/electron-sample-apps/tree/master/printing)
 
 ## License
 
