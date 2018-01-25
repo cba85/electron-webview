@@ -39,7 +39,7 @@ You just need to change the `src` attribute of the `webview` in `index.html` fil
 
 ### Developer tools
 
-You can show the developer tools by default: `mainWindow.openDevTools();`.
+You can show the developer tools by uncommenting in `main.js` file: `mainWindow.openDevTools();`.
 
 ### Title bar
 
