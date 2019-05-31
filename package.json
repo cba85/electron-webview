@@ -20,6 +20,6 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "~1.6.2",
-    "electron-installer-dmg": "^0.2.1"
+    "electron-installer-dmg": "^2.0.0"
   }
 }
