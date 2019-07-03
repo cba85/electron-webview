@@ -1,8 +1,7 @@
 const electron = require('electron');
-// Module to control application life.
 const app = electron.app;
-// Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
+
 var path = require('path');
 var fs = require("fs");
 
@@ -94,17 +93,31 @@ let initPath;
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
   initPath = path.join(app.getPath('userData'), "init.json");
+
   var data;
   try {
     data = JSON.parse(fs.readFileSync(initPath, 'utf8'));
   }
-  catch(e) {
-  }
+  catch(e) {}
 
-  mainWindow = new BrowserWindow((data && data.bounds) ? data.bounds : { width: 1024, height: 768, icon: path.join(__dirname, 'assets/icons/png/64x64.png'), frame: false });
+  mainWindow = new BrowserWindow({
+    width: 1024,
+    height: 768,
+    icon: path.join(__dirname, 'assets/icons/png/64x64.png'),
+    //titleBarStyle: 'hidden',
+    //frame: false,
+    backgroundColor: '#fff',
+    webPreferences: {
+      nodeIntegration: true,
+      webviewTag: true
+    }
+  });
+
   mainWindow.loadURL('file://' + __dirname + '/index.html');
-  // Display Dev Tools by default
+
+  // Display Dev Tools
   //mainWindow.openDevTools();
+
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 });

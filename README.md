@@ -39,11 +39,21 @@ You just need to change the `src` attribute of the `webview` in `index.html` fil
 
 ### Developer tools
 
-You can show the developer tools by uncommenting in `main.js` file: `mainWindow.openDevTools();`.
+You can show by default the developer tools by uncommenting in `main.js` file: `mainWindow.openDevTools();`.
 
 ### Title bar
 
-You can show the title bar of the app by setting `frame: true` when creating the window in `main.js` in `mainWindow` variable.
+You can hide the title bar of the app by setting `frame: false` or `titleBarStyle: 'hidden'` when creating the window in `main.js` in `mainWindow` variable.
+
+If you keep displaying the topbar using `titleBarStyle: 'hidden'` setting, you would have to adjust the topbar style.
+
+For example:
+
+```css
+#controls {
+    padding-top: 1.5em;
+}
+```
 
 ### Window dimensions and responsive
 
@@ -61,7 +71,7 @@ You can modify this menu in `main.js` file.
 ### Topbar (home and print buttons)
 
 A topbar to show buttons:
-- "Home" button to come back to your app if your website has external links is included.
+- "Home" button to come back to your app if your website has external links.
 - "Print" button to print the current url displayed by the webview.
 
 You can activate/deactivate this topbar (activate by default).
@@ -77,12 +87,13 @@ You can activate/deactivate this topbar (activate by default).
   ```html
   <div id="controls">...</div>
   ```
+  ```html
+    <script src="assets/js/topbar.js"></script>
+  ```
 
 - Uncomment:
   ```html
   <link rel="stylesheet" href="assets/css/no-topbar.css">
-
-  <script src="assets/js/topbar.js"></script>
   ```
 
 ##### In `assets/js/webview.js`:
