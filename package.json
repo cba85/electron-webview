@@ -1,7 +1,7 @@
 {
   "name": "electron-webview",
   "productName": "Electron webview",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A simple Electron webview application",
   "main": "main.js",
   "scripts": {
@@ -20,6 +20,6 @@
   "license": "MIT",
   "devDependencies": {
     "electron-installer-dmg": "^3.0.0",
-    "electron": "~5.0.6"
+    "electron": "~6.0.0"
   }
 }
