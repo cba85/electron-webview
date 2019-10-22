@@ -1,29 +1,19 @@
 window.onresize = doLayout;
 
-onload = function() {
-  var webview = document.querySelector('webview');
+onload = () => {
   doLayout();
-
   // Topbar functions
   homeButton();
   printButton();
-
-  // Test for the presence of the experimental <webview> zoom and find APIs.
-  if (typeof(webview.setZoom) == "function" &&
-      typeof(webview.find) == "function") {
-  }
 };
 
 function doLayout() {
-  var webview = document.querySelector('webview');
-  var windowWidth = document.documentElement.clientWidth;
-  var windowHeight = document.documentElement.clientHeight;
+  let webview = document.querySelector('webview');
+  let windowWidth = document.documentElement.clientWidth;
+  let windowHeight = document.documentElement.clientHeight;
+  let controlsHeight = getControlsHeight();
+  let webviewHeight = windowHeight - controlsHeight;
 
-  var controlsHeight = getControlsHeight();
-
-  var webviewWidth = windowWidth;
-  var webviewHeight = windowHeight - controlsHeight;
-
-  webview.style.width = webviewWidth + 'px';
+  webview.style.width = windowWidth + 'px';
   webview.style.height = webviewHeight + 'px';
 }

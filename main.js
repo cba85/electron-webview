@@ -2,8 +2,8 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
-var path = require('path');
-var fs = require("fs");
+const path = require('path');
+const fs = require("fs");
 
 // Menu (for standard keyboard shortcuts)
 const {Menu} = require('electron');
@@ -48,7 +48,7 @@ const template = [
 
 if (process.platform === 'darwin') {
   template.unshift({
-    label: app.getName(),
+    label: app.name,
     submenu: [
       {role: 'about'},
       {type: 'separator'},
@@ -91,10 +91,9 @@ let initPath;
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-app.on('ready', function() {
+app.on('ready', () => {
   initPath = path.join(app.getPath('userData'), "init.json");
 
-  var data;
   try {
     data = JSON.parse(fs.readFileSync(initPath, 'utf8'));
   }
@@ -109,7 +108,8 @@ app.on('ready', function() {
     backgroundColor: '#fff',
     webPreferences: {
       nodeIntegration: true,
-      webviewTag: true
+      webviewTag: true,
+      zoomFactor: 1.0
     }
   });
 
@@ -123,8 +123,8 @@ app.on('ready', function() {
 });
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function () {
-  var data = {
+app.on('window-all-closed', () => {
+  data = {
     bounds: mainWindow.getBounds()
   };
   fs.writeFileSync(initPath, JSON.stringify(data));
