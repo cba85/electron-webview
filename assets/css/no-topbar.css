@@ -1,4 +1,7 @@
 /* No topbar */
+#controls {
+  display: none;
+}
 
 #webview {
   position: absolute;
