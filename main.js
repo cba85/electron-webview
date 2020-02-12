@@ -1,87 +1,81 @@
-const electron = require('electron');
+const electron = require("electron");
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
-const path = require('path');
+const path = require("path");
 const fs = require("fs");
 
 // Menu (for standard keyboard shortcuts)
-const {Menu} = require('electron');
+const { Menu } = require("electron");
 
 const template = [
   {
-    label: 'Edit',
+    label: "Edit",
     submenu: [
-      {role: 'undo'},
-      {role: 'redo'},
-      {type: 'separator'},
-      {role: 'cut'},
-      {role: 'copy'},
-      {role: 'paste'},
-      {role: 'pasteandmatchstyle'},
-      {role: 'delete'},
-      {role: 'selectall'}
+      { role: "undo" },
+      { role: "redo" },
+      { type: "separator" },
+      { role: "cut" },
+      { role: "copy" },
+      { role: "paste" },
+      { role: "pasteandmatchstyle" },
+      { role: "delete" },
+      { role: "selectall" }
     ]
   },
   {
-    label: 'View',
+    label: "View",
     submenu: [
-      {role: 'reload'},
-      {role: 'forcereload'},
-      {role: 'toggledevtools'},
-      {type: 'separator'},
-      {role: 'resetzoom'},
-      {role: 'zoomin'},
-      {role: 'zoomout'},
-      {type: 'separator'},
-      {role: 'togglefullscreen'}
+      { role: "reload" },
+      { role: "forcereload" },
+      { role: "toggledevtools" },
+      { type: "separator" },
+      { role: "resetzoom" },
+      { role: "zoomin" },
+      { role: "zoomout" },
+      { type: "separator" },
+      { role: "togglefullscreen" }
     ]
   },
   {
-    role: 'window',
-    submenu: [
-      {role: 'minimize'},
-      {role: 'close'}
-    ]
+    role: "window",
+    submenu: [{ role: "minimize" }, { role: "close" }]
   }
 ];
 
-if (process.platform === 'darwin') {
+if (process.platform === "darwin") {
   template.unshift({
     label: app.name,
     submenu: [
-      {role: 'about'},
-      {type: 'separator'},
-      {role: 'services', submenu: []},
-      {type: 'separator'},
-      {role: 'hide'},
-      {role: 'hideothers'},
-      {role: 'unhide'},
-      {type: 'separator'},
-      {role: 'quit'}
+      { role: "about" },
+      { type: "separator" },
+      { role: "services", submenu: [] },
+      { type: "separator" },
+      { role: "hide" },
+      { role: "hideothers" },
+      { role: "unhide" },
+      { type: "separator" },
+      { role: "quit" }
     ]
   });
 
   // Edit menu
   template[1].submenu.push(
-    {type: 'separator'},
+    { type: "separator" },
     {
-      label: 'Speech',
-      submenu: [
-        {role: 'startspeaking'},
-        {role: 'stopspeaking'}
-      ]
+      label: "Speech",
+      submenu: [{ role: "startspeaking" }, { role: "stopspeaking" }]
     }
   );
 
   // Window menu
   template[3].submenu = [
-    {role: 'close'},
-    {role: 'minimize'},
-    {role: 'zoom'},
-    {type: 'separator'},
-    {role: 'front'}
-  ]
+    { role: "close" },
+    { role: "minimize" },
+    { role: "zoom" },
+    { type: "separator" },
+    { role: "front" }
+  ];
 }
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -91,21 +85,20 @@ let initPath;
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-app.on('ready', () => {
-  initPath = path.join(app.getPath('userData'), "init.json");
+app.on("ready", () => {
+  initPath = path.join(app.getPath("userData"), "init.json");
 
   try {
-    data = JSON.parse(fs.readFileSync(initPath, 'utf8'));
-  }
-  catch(e) {}
+    data = JSON.parse(fs.readFileSync(initPath, "utf8"));
+  } catch (e) {}
 
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 768,
-    icon: path.join(__dirname, 'assets/icons/png/64x64.png'),
+    icon: path.join(__dirname, "assets/icons/png/64x64.png"),
     //titleBarStyle: 'hidden',
     //frame: false,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     webPreferences: {
       nodeIntegration: true,
       webviewTag: true,
@@ -113,7 +106,7 @@ app.on('ready', () => {
     }
   });
 
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.loadURL("file://" + __dirname + "/index.html");
 
   // Display Dev Tools
   //mainWindow.openDevTools();
@@ -123,7 +116,7 @@ app.on('ready', () => {
 });
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
+app.on("window-all-closed", () => {
   data = {
     bounds: mainWindow.getBounds()
   };

@@ -51,7 +51,7 @@ For example:
 
 ```css
 #controls {
-    padding-top: 1.5em;
+  padding-top: 1.5em;
 }
 ```
 
@@ -71,6 +71,7 @@ You can modify this menu in `main.js` file.
 ### Topbar (home and print buttons)
 
 A topbar to show buttons:
+
 - "Home" button to come back to your app if your website has external links.
 - "Print" button to print the current url displayed by the webview.
 
@@ -81,19 +82,22 @@ You can activate/deactivate this topbar (activate by default).
 ##### In `index.html`:
 
 - Comment:
+
   ```html
-  <link rel="stylesheet" href="assets/css/topbar.css">
+  <link rel="stylesheet" href="assets/css/topbar.css" />
   ```
+
   ```html
   <div id="controls">...</div>
   ```
+
   ```html
-    <script src="assets/js/topbar.js"></script>
+  <script src="assets/js/topbar.js"></script>
   ```
 
 - Uncomment:
   ```html
-  <link rel="stylesheet" href="assets/css/no-topbar.css">
+  <link rel="stylesheet" href="assets/css/no-topbar.css" />
   ```
 
 ##### In `assets/js/webview.js`:
