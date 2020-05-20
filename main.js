@@ -20,8 +20,8 @@ const template = [
       { role: "paste" },
       { role: "pasteandmatchstyle" },
       { role: "delete" },
-      { role: "selectall" }
-    ]
+      { role: "selectall" },
+    ],
   },
   {
     label: "View",
@@ -34,13 +34,13 @@ const template = [
       { role: "zoomin" },
       { role: "zoomout" },
       { type: "separator" },
-      { role: "togglefullscreen" }
-    ]
+      { role: "togglefullscreen" },
+    ],
   },
   {
     role: "window",
-    submenu: [{ role: "minimize" }, { role: "close" }]
-  }
+    submenu: [{ role: "minimize" }, { role: "close" }],
+  },
 ];
 
 if (process.platform === "darwin") {
@@ -55,8 +55,8 @@ if (process.platform === "darwin") {
       { role: "hideothers" },
       { role: "unhide" },
       { type: "separator" },
-      { role: "quit" }
-    ]
+      { role: "quit" },
+    ],
   });
 
   // Edit menu
@@ -64,7 +64,7 @@ if (process.platform === "darwin") {
     { type: "separator" },
     {
       label: "Speech",
-      submenu: [{ role: "startspeaking" }, { role: "stopspeaking" }]
+      submenu: [{ role: "startspeaking" }, { role: "stopspeaking" }],
     }
   );
 
@@ -74,7 +74,7 @@ if (process.platform === "darwin") {
     { role: "minimize" },
     { role: "zoom" },
     { type: "separator" },
-    { role: "front" }
+    { role: "front" },
   ];
 }
 
@@ -103,8 +103,9 @@ app.on("ready", () => {
     webPreferences: {
       nodeIntegration: true,
       webviewTag: true,
-      zoomFactor: 1.0
-    }
+      zoomFactor: 1.0,
+      enableRemoteModule: true,
+    },
   });
 
   mainWindow.loadURL("file://" + __dirname + "/index.html");
@@ -119,7 +120,7 @@ app.on("ready", () => {
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
   data = {
-    bounds: mainWindow.getBounds()
+    bounds: mainWindow.getBounds(),
   };
   fs.writeFileSync(initPath, JSON.stringify(data));
   app.quit();
