@@ -1,27 +1,37 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="stylesheet" href="assets/css/topbar.css">
-        <!-- <link rel="stylesheet" href="assets/css/no-topbar.css"> -->
-        <script src="assets/js/webview.js"></script>
-        <script src="assets/js/topbar.js"></script>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline';">
-    </head>
-    <body>
-        <!-- Topbar -->
-        <div id="controls">
-            <button id="home" title="Go Home">Home</button>
-            <button id="print_button">Print</button>
-        </div>
-        <!-- End topbar -->
+  <head>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/topbar.css" />
+    <!-- <link rel="stylesheet" href="assets/css/no-topbar.css"> -->
+    <script src="assets/js/webview.js"></script>
+    <script src="assets/js/topbar.js"></script>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline';"
+    />
+  </head>
+  <body>
+    <!-- Topbar -->
+    <div id="controls">
+      <button id="home" title="Go Home">Home</button>
+      <button id="print_button">Print</button>
+    </div>
+    <!-- End topbar -->
 
-        <!-- Webview -->
-        <webview id="webview" autosize="on" src="https://www.github.com" data-home="https://www.github.com"></webview>
+    <div class="indicator"></div>
 
-        <!-- HTML -->
-        <!--
+    <!-- Webview -->
+    <webview
+      id="webview"
+      autosize="on"
+      src="https://www.github.com"
+      data-home="https://www.github.com"
+    ></webview>
+
+    <!-- HTML -->
+    <!--
         <h1>Hello world!</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, voluptatum sint ullam minima molestias nam id autem perferendis! Cumque veritatis sunt dolor quidem cum? Natus dolore ipsum illum numquam molestiae?</p>
         -->
-    </body>
+  </body>
 </html>

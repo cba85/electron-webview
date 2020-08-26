@@ -1,6 +1,6 @@
 const electron = require("electron");
 const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
+const { BrowserWindow } = electron;
 
 const path = require("path");
 const fs = require("fs");
@@ -93,6 +93,7 @@ app.on("ready", () => {
     data = JSON.parse(fs.readFileSync(initPath, "utf8"));
   } catch (e) {}
 
+  // https://www.electronjs.org/docs/api/browser-window#class-browserwindow
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 768,
@@ -102,7 +103,8 @@ app.on("ready", () => {
     backgroundColor: "#fff",
     webPreferences: {
       nodeIntegration: true,
-      webviewTag: true,
+      // https://www.electronjs.org/docs/api/webview-tag
+      webviewTag: true, // Security warning since Electron 10
       zoomFactor: 1.0,
       enableRemoteModule: true,
     },
