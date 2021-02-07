@@ -21,6 +21,9 @@ This Electron webview application needs just these files:
 - `main.js` - Starts the app and creates a browser window to render website. This is the app's **main process**.
 - `index.html` - A web page to render. This is the app's renderer process.
 - `assets/` - Assets for the project (style, scripts, icons)
+- `src/` - Sources folder:
+  - `menu.js` : menu template customization
+  - `window.js` : browser window customization
 
 ## Usage
 
@@ -36,6 +39,16 @@ $ npm start
 ### Configuration
 
 You just need to change the `src` attribute of the `webview` in `index.html` file to display the url you want in your webview.
+
+Alternatively, it's also possible to just load an external URL:
+
+```js
+  // Comment
+  //mainWindow.loadURL(`file://${__dirname}/index.html`); // Load custom html file with external content using webview tag
+
+  // Uncomment
+  mainWindow.loadURL("https://github.com"); // Load directly an URL if you don't need interface customization
+```
 
 ### Developer tools
 
@@ -66,7 +79,7 @@ If you want to change the window dimensions at the first start, change `width` a
 
 This webview integrates an Electron menu. It will also make standard keyboard shortcuts, like copy and paste, work on MacOS.
 
-You can modify this menu in `main.js` file.
+You can modify this menu in `src/menu.js` file.
 
 ### Topbar (home and print buttons)
 
@@ -81,38 +94,40 @@ You can activate/deactivate this topbar (activate by default).
 
 ##### In `index.html`:
 
-- Comment:
+```html
+<!-- Comment -->
+<!-- <link rel="stylesheet" href="assets/css/topbar.css" /> -->
+<!-- <div id="controls">...</div> -->
+<!-- <script src="assets/js/topbar.js"></script> -->
 
-  ```html
-  <link rel="stylesheet" href="assets/css/topbar.css" />
-  ```
-
-  ```html
-  <div id="controls">...</div>
-  ```
-
-  ```html
-  <script src="assets/js/topbar.js"></script>
-  ```
-
-- Uncomment:
-  ```html
-  <link rel="stylesheet" href="assets/css/no-topbar.css" />
-  ```
+<!-- Uncomment -->
+<link rel="stylesheet" href="assets/css/no-topbar.css" />
+```
 
 ##### In `assets/js/webview.js`:
 
-- Comment:
-  ```js
-  // Topbar functions
-  homeButton();
-  printButton();
-  ```
+```js
+// Comment
+
+// Topbar functions
+//homeButton();
+//printButton();
+```
 
 #### Activation
 
 - Do the opposite of what you did in the activation chapter above.
 - Don't forget to set the homepage of your app in the `data-home` attribute of `webview` in `index.html` file to make the "Home" button works.
+
+```html
+  <!-- Webview -->
+  <webview
+    id="webview"
+    autosize="on"
+    src="https://www.github.com"
+    data-home="https://www.github.com"
+  ></webview>
+```
 
 ## Application
 
@@ -233,6 +248,13 @@ Based on:
 - [Electron Packager tutorial](https://www.christianengvall.se/electron-packager-tutorial/)
 - [Browser](https://github.com/hokein/electron-sample-apps/tree/master/webview/browser)
 - [Printing](https://github.com/hokein/electron-sample-apps/tree/master/printing)
+
+## References
+
+- [Electron - app](https://www.electronjs.org/docs/api/app)
+- [Electron - BrowserWindow](https://www.electronjs.org/docs/api/browser-window#class-browserwindow)
+- [Electron - Menu](https://www.electronjs.org/docs/api/menu)
+- [Electron - webview Tag](https://www.electronjs.org/docs/api/webview-tag)
 
 ## License
 

@@ -1,82 +1,18 @@
-const electron = require("electron");
-const app = electron.app;
-const { BrowserWindow } = electron;
-
+// Utilities
 const path = require("path");
 const fs = require("fs");
 
+// Electron
+const electron = require("electron");
+const app = electron.app;
+
+// Main window
+const window = require("./src/window");
+
 // Menu (for standard keyboard shortcuts)
 const { Menu } = require("electron");
-
-const template = [
-  {
-    label: "Edit",
-    submenu: [
-      { role: "undo" },
-      { role: "redo" },
-      { type: "separator" },
-      { role: "cut" },
-      { role: "copy" },
-      { role: "paste" },
-      { role: "pasteandmatchstyle" },
-      { role: "delete" },
-      { role: "selectall" },
-    ],
-  },
-  {
-    label: "View",
-    submenu: [
-      { role: "reload" },
-      { role: "forcereload" },
-      { role: "toggledevtools" },
-      { type: "separator" },
-      { role: "resetzoom" },
-      { role: "zoomin" },
-      { role: "zoomout" },
-      { type: "separator" },
-      { role: "togglefullscreen" },
-    ],
-  },
-  {
-    role: "window",
-    submenu: [{ role: "minimize" }, { role: "close" }],
-  },
-];
-
-if (process.platform === "darwin") {
-  template.unshift({
-    label: app.name,
-    submenu: [
-      { role: "about" },
-      { type: "separator" },
-      { role: "services", submenu: [] },
-      { type: "separator" },
-      { role: "hide" },
-      { role: "hideothers" },
-      { role: "unhide" },
-      { type: "separator" },
-      { role: "quit" },
-    ],
-  });
-
-  // Edit menu
-  template[1].submenu.push(
-    { type: "separator" },
-    {
-      label: "Speech",
-      submenu: [{ role: "startspeaking" }, { role: "stopspeaking" }],
-    }
-  );
-
-  // Window menu
-  template[3].submenu = [
-    { role: "close" },
-    { role: "minimize" },
-    { role: "zoom" },
-    { type: "separator" },
-    { role: "front" },
-  ];
-}
+const menu = require("./src/menu");
+const template = menu.createTemplate(app.name);
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -93,27 +29,18 @@ app.on("ready", () => {
     data = JSON.parse(fs.readFileSync(initPath, "utf8"));
   } catch (e) {}
 
-  // https://www.electronjs.org/docs/api/browser-window#class-browserwindow
-  mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 768,
-    icon: path.join(__dirname, "assets/icons/png/64x64.png"),
-    //titleBarStyle: 'hidden',
-    //frame: false,
-    backgroundColor: "#fff",
-    webPreferences: {
-      nodeIntegration: true,
-      // https://www.electronjs.org/docs/api/webview-tag
-      webviewTag: true, // Security warning since Electron 10
-      zoomFactor: 1.0,
-      enableRemoteModule: true,
-    },
-  });
+  mainWindow = window.createBrowserWindow();
 
-  mainWindow.loadURL("file://" + __dirname + "/index.html");
+  mainWindow.loadURL(`file://${__dirname}/index.html`); // Load custom html file with external content using webview tag
+  //mainWindow.loadURL("https://github.com"); // Load directly an URL if you don't need interface customization
 
   // Display Dev Tools
   //mainWindow.openDevTools();
+
+  // https://www.electronjs.org/docs/api/browser-window#showing-window-gracefully
+  mainWindow.once("ready-to-show", () => {
+    mainWindow.show();
+  });
 
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
