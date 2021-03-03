@@ -19,11 +19,14 @@ This Electron webview application needs just these files:
 
 - `package.json` - Points to the app's main file and lists its details and dependencies.
 - `main.js` - Starts the app and creates a browser window to render website. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's renderer process.
+- `index.html` - A web page to render. This is the app's **renderer process**.
 - `assets/` - Assets for the project (style, scripts, icons)
 - `src/` - Sources folder:
   - `menu.js` : menu template customization
+  - `view.js` : browser view usage
   - `window.js` : browser window customization
+
+Note: check [the offical Electron quick start](https://www.electronjs.org/docs/tutorial/quick-start) if you need to learn the basics about Electron.
 
 ## Usage
 
@@ -36,7 +39,12 @@ $ npm install
 $ npm start
 ```
 
-### Configuration
+## Electron 12 update
+
+- Since [remote](https://www.electronjs.org/docs/api/remote) module is deprecated since Electron 12, this boilerplate uses [@electron/remote](https://github.com/electron/remote).
+- This boilerplate doesn't use `nodeIntegration` nor `nodeIntegrationInWorker` option in `BrowserWindow` anymore [as required for security reasons](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content) but uses a preload script instead.
+
+## Configuration
 
 You just need to change the `src` attribute of the `webview` in `index.html` file to display the url you want in your webview.
 
@@ -48,6 +56,10 @@ Alternatively, it's also possible to just load an external URL:
 
   // Uncomment
   mainWindow.loadURL("https://github.com"); // Load directly an URL if you don't need interface customization
+
+   // Or uncomment if you prefer to use BrowserView:
+  const view = require("./src/view");
+  view.createBrowserView(mainWindow);
 ```
 
 ### Developer tools
@@ -92,26 +104,30 @@ You can activate/deactivate this topbar (activate by default).
 
 #### Deactivation
 
+##### In `src/window.js`:
+
+```js
+// Comment
+// preload: path.join(__dirname, "../preload.js"), // required for print function
+```
+
 ##### In `index.html`:
 
 ```html
 <!-- Comment -->
 <!-- <link rel="stylesheet" href="assets/css/topbar.css" /> -->
 <!-- <div id="controls">...</div> -->
-<!-- <script src="assets/js/topbar.js"></script> -->
+<!-- <script src="assets/js/renderer.js"></script> -->
 
 <!-- Uncomment -->
 <link rel="stylesheet" href="assets/css/no-topbar.css" />
 ```
 
-##### In `assets/js/webview.js`:
+##### In `assets/js/renderer.js`:
 
 ```js
 // Comment
-
-// Topbar functions
 //homeButton();
-//printButton();
 ```
 
 #### Activation
@@ -255,6 +271,7 @@ Based on:
 - [Electron - BrowserWindow](https://www.electronjs.org/docs/api/browser-window#class-browserwindow)
 - [Electron - Menu](https://www.electronjs.org/docs/api/menu)
 - [Electron - webview Tag](https://www.electronjs.org/docs/api/webview-tag)
+- [Electron quick start](https://www.electronjs.org/docs/tutorial/quick-start)
 
 ## License
 

@@ -3,54 +3,38 @@ const path = require("path");
 const fs = require("fs");
 
 // Electron
-const electron = require("electron");
-const app = electron.app;
-
-// Main window
-const window = require("./src/window");
-
-// Menu (for standard keyboard shortcuts)
-const { Menu } = require("electron");
-const menu = require("./src/menu");
-const template = menu.createTemplate(app.name);
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
-let initPath;
+const { app, Menu, BrowserWindow } = require("electron");
+require("@electron/remote/main").initialize();
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.allowRendererProcessReuse = true;
 app.on("ready", () => {
-  initPath = path.join(app.getPath("userData"), "init.json");
+  // Main window
+  const window = require("./src/window");
+  mainWindow = window.createBrowserWindow(app);
 
-  try {
-    data = JSON.parse(fs.readFileSync(initPath, "utf8"));
-  } catch (e) {}
+  // Option 1: Uses Webtag and load a custom html file with external content
+  mainWindow.loadURL(`file://${__dirname}/index.html`);
 
-  mainWindow = window.createBrowserWindow();
+  // Option 2: Load directly an URL if you don't need interface customization
+  //mainWindow.loadURL("https://github.com");
 
-  mainWindow.loadURL(`file://${__dirname}/index.html`); // Load custom html file with external content using webview tag
-  //mainWindow.loadURL("https://github.com"); // Load directly an URL if you don't need interface customization
+  // Option 3: Uses BrowserView to load an URL
+  //const view = require("./src/view");
+  //view.createBrowserView(mainWindow);
 
   // Display Dev Tools
   //mainWindow.openDevTools();
 
-  // https://www.electronjs.org/docs/api/browser-window#showing-window-gracefully
-  mainWindow.once("ready-to-show", () => {
-    mainWindow.show();
-  });
-
-  const menu = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(menu);
+  // Menu (for standard keyboard shortcuts)
+  const menu = require("./src/menu");
+  const template = menu.createTemplate(app.name);
+  const builtMenu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(builtMenu);
 });
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
-  data = {
-    bounds: mainWindow.getBounds(),
-  };
-  fs.writeFileSync(initPath, JSON.stringify(data));
   app.quit();
 });
