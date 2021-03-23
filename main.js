@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 
 // Electron
-const { app, Menu, BrowserWindow } = require("electron");
+const { app, Menu } = require("electron");
 require("@electron/remote/main").initialize();
 
 // This method will be called when Electron has finished
