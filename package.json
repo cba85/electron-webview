@@ -21,7 +21,7 @@
   "author": "GitHub",
   "license": "MIT",
   "dependencies": {
-    "@electron/remote": "^1.0.4"
+    "@electron/remote": "^2.0.0"
   },
   "devDependencies": {
     "electron": "^14.0.0",
