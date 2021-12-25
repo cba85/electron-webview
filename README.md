@@ -39,7 +39,7 @@ $ npm install
 $ npm start
 ```
 
-## Electron 12 update
+## Electron 12+ update
 
 - Since [remote](https://www.electronjs.org/docs/api/remote) module is deprecated since Electron 12, this boilerplate uses [@electron/remote](https://github.com/electron/remote).
 - This boilerplate doesn't use `nodeIntegration` nor `nodeIntegrationInWorker` option in `BrowserWindow` anymore [as required for security reasons](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content) but uses a preload script instead. This is useful for the app print function. If you want to see print function using `nodeIntegration` option, [check this printing sample app](https://github.com/hokein/electron-sample-apps/tree/master/printing).
