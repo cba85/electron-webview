@@ -24,7 +24,7 @@
     "@electron/remote": "^2.0.0"
   },
   "devDependencies": {
-    "electron": "^16.0.0",
+    "electron": "^17.0.1",
     "electron-installer-dmg": "^3.0.0"
   }
 }
