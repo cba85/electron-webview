@@ -174,11 +174,7 @@ The `.icns` icon converted with Image2icon perfectly works on Mac.
 #### Install Electron packager
 
 ```bash
-# for use in npm scripts
 $ npm install electron-packager --save-dev
-
-# for use from cli
-$ npm install electron-packager -g
 ```
 
 #### Application name
@@ -190,19 +186,19 @@ Change the `productName` in `package.json`
 MacOS
 
 ```bash
-$ electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds
+$ npx electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds
 ```
 
 Windows
 
 ```bash
-$ electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName="Electron Webview"
+$ npx electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName="Electron Webview"
 ```
 
 Linux (Ubuntu)
 
 ```bash
-$ electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds
+$ npx electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds
 ```
 
 #### Shortcuts
@@ -232,17 +228,13 @@ To create a DMG installer you first need to package the app as we saw in the App
 ### Install
 
 ```bash
-# For use in npm scripts
 $ npm install electron-installer-dmg --save-dev
-
-# For use from cli
-$ npm install electron-installer-dmg -g
 ```
 
 ### Create the DMG
 
 ```bash
-$ electron-installer-dmg ./release-builds/Electron\ webview-darwin-x64/Electron\ webview.app electron-webview --out=release-builds --overwrite --icon=assets/icons/mac/icon.icns
+$ npx electron-installer-dmg ./release-builds/Electron\ webview-darwin-x64/Electron\ webview.app electron-webview --out=release-builds --overwrite --icon=assets/icons/mac/icon.icns
 ```
 
 An `electron-webview.dmg` file is now created in the `release-builds` folder.
