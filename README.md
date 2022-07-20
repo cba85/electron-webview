@@ -1,9 +1,11 @@
 # Electron webview
 
+
+
 This is a simple Electron application to create a webview.
 
 Features:
-
+- Now in my fork, it can open anchor links .
 - Responsive window
 - Remember the window dimensions when reopening
 - Menu & keyboard shortcuts for MacOs
@@ -14,6 +16,29 @@ Features:
 - DMG installer for Mac
 
 ![Electron webview](screenshot.png)
+
+# The changes of this fork:
+based on recommendations from following link, I apply some changes to original program that makes it capable of opening ancher links.
+https://stackoverflow.com/questions/48298364/choose-which-popups-should-be-allowed-from-webview-in-electron-app
+
+
+- adding  allowpopups to webview tag in html file
+- changing the default website from github.com to varzesh3.com
+- adding  webpreferences="nativeWindowOpen=true" to webview tag in html file
+- adding following code snippet to main.js to open new link in current window.
+
+app.on('web-contents-created', function (webContentsCreatedEvent, contents) {
+  if (contents.getType() === 'webview') {
+    contents.on('new-window', function (newWindowEvent, url) {
+      console.log('block');
+      //newWindowEvent.preventDefault();
+      mainWindow.loadURL(url);
+    });
+  }
+});
+
+
+
 
 This Electron webview application needs just these files:
 
