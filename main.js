@@ -6,6 +6,17 @@ remoteMain.initialize();
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.allowRendererProcessReuse = true;
+
+app.on('web-contents-created', function (webContentsCreatedEvent, contents) {
+  if (contents.getType() === 'webview') {
+    contents.on('new-window', function (newWindowEvent, url) {
+      console.log('block');
+      //newWindowEvent.preventDefault();
+      mainWindow.loadURL(url);
+    });
+  }
+});
+
 app.on("ready", () => {
   // Main window
   const window = require("./src/window");
