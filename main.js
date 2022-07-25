@@ -1,129 +1,38 @@
-const electron = require("electron");
-const app = electron.app;
-const { BrowserWindow } = electron;
-
-const path = require("path");
-const fs = require("fs");
-
-// Menu (for standard keyboard shortcuts)
-const { Menu } = require("electron");
-
-const template = [
-  {
-    label: "Edit",
-    submenu: [
-      { role: "undo" },
-      { role: "redo" },
-      { type: "separator" },
-      { role: "cut" },
-      { role: "copy" },
-      { role: "paste" },
-      { role: "pasteandmatchstyle" },
-      { role: "delete" },
-      { role: "selectall" },
-    ],
-  },
-  {
-    label: "View",
-    submenu: [
-      { role: "reload" },
-      { role: "forcereload" },
-      { role: "toggledevtools" },
-      { type: "separator" },
-      { role: "resetzoom" },
-      { role: "zoomin" },
-      { role: "zoomout" },
-      { type: "separator" },
-      { role: "togglefullscreen" },
-    ],
-  },
-  {
-    role: "window",
-    submenu: [{ role: "minimize" }, { role: "close" }],
-  },
-];
-
-if (process.platform === "darwin") {
-  template.unshift({
-    label: app.name,
-    submenu: [
-      { role: "about" },
-      { type: "separator" },
-      { role: "services", submenu: [] },
-      { type: "separator" },
-      { role: "hide" },
-      { role: "hideothers" },
-      { role: "unhide" },
-      { type: "separator" },
-      { role: "quit" },
-    ],
-  });
-
-  // Edit menu
-  template[1].submenu.push(
-    { type: "separator" },
-    {
-      label: "Speech",
-      submenu: [{ role: "startspeaking" }, { role: "stopspeaking" }],
-    }
-  );
-
-  // Window menu
-  template[3].submenu = [
-    { role: "close" },
-    { role: "minimize" },
-    { role: "zoom" },
-    { type: "separator" },
-    { role: "front" },
-  ];
-}
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
-let initPath;
+// Electron
+const { app, Menu } = require("electron");
+const remoteMain = require("@electron/remote/main");
+remoteMain.initialize();
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.allowRendererProcessReuse = true;
 app.on("ready", () => {
-  initPath = path.join(app.getPath("userData"), "init.json");
+  // Main window
+  const window = require("./src/window");
+  mainWindow = window.createBrowserWindow(app);
+  remoteMain.enable(mainWindow.webContents);
 
-  try {
-    data = JSON.parse(fs.readFileSync(initPath, "utf8"));
-  } catch (e) {}
+  // Option 1: Uses Webtag and load a custom html file with external content
+  mainWindow.loadURL(`file://${__dirname}/index.html`);
 
-  // https://www.electronjs.org/docs/api/browser-window#class-browserwindow
-  mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 768,
-    icon: path.join(__dirname, "assets/icons/png/64x64.png"),
-    //titleBarStyle: 'hidden',
-    //frame: false,
-    backgroundColor: "#fff",
-    webPreferences: {
-      nodeIntegration: true,
-      // https://www.electronjs.org/docs/api/webview-tag
-      webviewTag: true, // Security warning since Electron 10
-      zoomFactor: 1.0,
-      enableRemoteModule: true,
-    },
-  });
+  // Option 2: Load directly an URL if you don't need interface customization
+  //mainWindow.loadURL("https://github.com");
 
-  mainWindow.loadURL("file://" + __dirname + "/index.html");
+  // Option 3: Uses BrowserView to load an URL
+  //const view = require("./src/view");
+  //view.createBrowserView(mainWindow);
 
   // Display Dev Tools
   //mainWindow.openDevTools();
 
-  const menu = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(menu);
+  // Menu (for standard keyboard shortcuts)
+  const menu = require("./src/menu");
+  const template = menu.createTemplate(app.name);
+  const builtMenu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(builtMenu);
 });
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
-  data = {
-    bounds: mainWindow.getBounds(),
-  };
-  fs.writeFileSync(initPath, JSON.stringify(data));
   app.quit();
 });
