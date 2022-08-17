@@ -6,7 +6,7 @@ const getControlsHeight = () => {
   return 0;
 };
 
-function calculateLayoutSize() {
+const calculateLayoutSize = () => {
   const webview = document.querySelector("webview");
   const windowWidth = document.documentElement.clientWidth;
   const windowHeight = document.documentElement.clientHeight;
@@ -15,18 +15,31 @@ function calculateLayoutSize() {
 
   webview.style.width = windowWidth + "px";
   webview.style.height = webviewHeight + "px";
-}
-
-const homeButton = () => {
-  document.querySelector("#home").onclick = () => {
-    const home = document.getElementById("webview").getAttribute("data-home");
-    document.querySelector("webview").src = home;
-  };
 };
 
-window.onload = () => {
+window.addEventListener("DOMContentLoaded", () => {
   calculateLayoutSize();
-  homeButton();
-};
 
-window.onresize = calculateLayoutSize;
+  // Dynamic resize function (responsive)
+  window.onresize = calculateLayoutSize;
+
+  // Home button exists
+  if (document.querySelector("#home")) {
+    document.querySelector("#home").onclick = () => {
+      const home = document.getElementById("webview").getAttribute("data-home");
+      document.querySelector("webview").src = home;
+    };
+  }
+
+  // Print button exits
+  if (document.querySelector("#print_button")) {
+    document
+      .querySelector("#print_button")
+      .addEventListener("click", async () => {
+        const url = document.querySelector("webview").getAttribute("src");
+
+        // Launch print window
+        await window.electron.print(url);
+      });
+  }
+});

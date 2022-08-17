@@ -23,6 +23,7 @@ This Electron webview application needs just these files:
 - `assets/` - Assets for the project (style, scripts, icons)
 - `src/` - Sources folder:
   - `menu.js` : menu template customization
+  - `print.js` : print function
   - `view.js` : browser view usage
   - `window.js` : browser window customization
 
@@ -39,7 +40,11 @@ $ npm install
 $ npm start
 ```
 
-## Electron 12+ update
+### Electron 20 major update
+
+Since Electron 20 update, [@electron/remote](https://github.com/electron/remote) is replaced by [ipcRenderer](https://www.electronjs.org/docs/latest/api/ipc-renderer) and [contextBridge](https://www.electronjs.org/fr/docs/latest/api/context-bridge), due to @electron/remote [many subtle pitfalls](https://nornagon.medium.com/electrons-remote-module-considered-harmful-70d69500f31).
+
+### Electron 12+ major update
 
 - Since [remote](https://www.electronjs.org/docs/api/remote) module is deprecated since Electron 12, this boilerplate uses [@electron/remote](https://github.com/electron/remote).
 - This boilerplate doesn't use `nodeIntegration` nor `nodeIntegrationInWorker` option in `BrowserWindow` anymore [as required for security reasons](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content) but uses a preload script instead. This is useful for the app print function. If you want to see print function using `nodeIntegration` option, [check this printing sample app](https://github.com/hokein/electron-sample-apps/tree/master/printing).
@@ -104,10 +109,17 @@ You can activate/deactivate this topbar (activate by default).
 
 #### Deactivation
 
+##### In `src/main.js`:
+
+```js
+// Comment:
+// require("./src/print");
+```
+
 ##### In `src/window.js`:
 
 ```js
-// Comment
+// Comment:
 // preload: path.join(__dirname, "../preload.js"), // required for print function
 ```
 
@@ -126,8 +138,22 @@ You can activate/deactivate this topbar (activate by default).
 ##### In `assets/js/renderer.js`:
 
 ```js
-// Comment
-//homeButton();
+// Comment:
+
+// Home button exists
+/*
+if (document.querySelector("#home")) {
+  ...
+}
+*/
+
+// Print button exits
+/*
+if (document.querySelector("#print_button")) {
+  ...
+}
+*/
+
 ```
 
 #### Activation
