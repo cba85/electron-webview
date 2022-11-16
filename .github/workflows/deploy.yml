@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    tags:
+      - 'v*'
+
 
 jobs:
   build-win:
@@ -33,6 +33,21 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: npm run package-win 
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release - ${{ steps.get_version.outputs.VERSION }}
+        draft: false
+        prerelease: false    
+    
+    
 
   build-mac:
 
