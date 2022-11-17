@@ -43,7 +43,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.ref }}
-        context: ./release-builds/Electron webview-win32-ia32/
+        context: ./release-builds/
         release_name: Release - ${{ steps.get_version.outputs.VERSION }}
         draft: false
         prerelease: false    
