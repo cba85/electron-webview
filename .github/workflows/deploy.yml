@@ -5,8 +5,8 @@ name: Node.js CI
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - 'master'
 
 
 jobs:
@@ -43,32 +43,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.ref }}
+        context: ./release-builds/Electron webview-win32-ia32/
         release_name: Release - ${{ steps.get_version.outputs.VERSION }}
         draft: false
         prerelease: false    
     
     
 
-  build-mac:
-
-    runs-on: macos-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-    - name: Install SSH key
-      uses: shimataro/ssh-key-action@v2
-      with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: ${{ secrets.KNOWN_HOST }}
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm install
-    - run: npm run package-mac     
