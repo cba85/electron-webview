@@ -3,6 +3,4 @@
 body {
   margin: 0;
   padding: 0;
-  -webkit-user-select: none;
-  -webkit-app-region: drag;
 }

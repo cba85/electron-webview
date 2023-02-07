@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // Home button exists
   if (document.querySelector("#home")) {
     document.querySelector("#home").onclick = () => {
-      const home = document.getElementById("webview").getAttribute("data-home");
+      const home = document.getElementById("webview").getAttribute("data-home"); //getElementById instead querySelector to use live collections: https://javascript.info/searching-elements-dom#live-collections
       document.querySelector("webview").src = home;
     };
   }

@@ -1,5 +1,7 @@
 # Electron webview
 
+> Uses [Electron 23](https://releases.electronjs.org/release/v23.0.0)
+
 This is a simple Electron application to create a webview.
 
 Features:
@@ -163,12 +165,7 @@ if (document.querySelector("#print_button")) {
 
 ```html
   <!-- Webview -->
-  <webview
-    id="webview"
-    autosize="on"
-    src="https://www.github.com"
-    data-home="https://www.github.com"
-  ></webview>
+  <webview autosize="on" src="https://www.github.com" data-home="https://github.com"></webview>
 ```
 
 ## Application

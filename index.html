@@ -2,11 +2,14 @@
   <head>
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/topbar.css" />
+
     <!-- <link rel="stylesheet" href="assets/css/no-topbar.css"> -->
     <script defer src="assets/js/renderer.js"></script>
+    <meta charset="UTF-8" />
+    <title>Github</title>
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; style-src 'self' 'unsafe-inline';"
+      content="script-src 'self' 'unsafe-inline';"
     />
   </head>
   <body>
@@ -18,17 +21,22 @@
     <!-- End topbar -->
 
     <!-- Webview -->
+
     <webview
-      id="webview"
       autosize="on"
       src="https://www.github.com"
-      data-home="https://www.github.com"
+      id="webview"
+      data-home="https://github.com"
     ></webview>
 
     <!-- HTML -->
     <!--
-        <h1>Hello world!</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, voluptatum sint ullam minima molestias nam id autem perferendis! Cumque veritatis sunt dolor quidem cum? Natus dolore ipsum illum numquam molestiae?</p>
-        -->
+    <h1>Hello world!</h1>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, voluptatum
+      sint ullam minima molestias nam id autem perferendis! Cumque veritatis
+      sunt dolor quidem cum? Natus dolore ipsum illum numquam molestiae?
+    </p>
+    -->
   </body>
 </html>
