@@ -14,6 +14,7 @@ exports.createBrowserWindow = () => {
       nativeWindowOpen: true,
       devTools: true, // false if you want to remove dev tools access for the user
       contextIsolation: false,
+	  //nodeIntegration: true,
 	  allowRunningInsecureContent : true,
       //enableRemoteModule: true, // required for print function [removed since Electron 12, uses https://github.com/electron/remote]
       webviewTag: true, // https://www.electronjs.org/docs/api/webview-tag,

@@ -2,6 +2,8 @@
 const { app, Menu } = require("electron");
 const { BrowserWindow } = require("electron"); 
 const remoteMain = require("@electron/remote/main");
+const prompt = require('electron-prompt');
+
 remoteMain.initialize();
 
 const electron = require('electron');
@@ -9,7 +11,7 @@ const ipcMain = electron.ipcMain
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-app.allowRendererProcessReuse = true;
+	app.allowRendererProcessReuse = true;
 
 app.on('web-contents-created', function (webContentsCreatedEvent, contents) {
   if (contents.getType() === 'webview') {
@@ -43,9 +45,35 @@ app.on("ready", () => {
   const builtMenu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(builtMenu);
   
-  var promptResponse
-  ipcMain.on('prompt', function(eventRet, arg) 
+  //var promptResponse
+  ipcMain.on('prompt', (eventRet, arg)=>
   {
+
+	prompt({		
+		title: arg.title,
+		width:  300,
+		height: 200,
+		label: 'Message',		
+		alwaysOnTop:true,
+		resizable:false,
+		type: 'input'
+	})
+	.then((r) => {
+		if(r === null)
+		{
+			eventRet.returnValue = "";
+			console.log('user cancelled');			
+		} 
+		else 
+		{
+			eventRet.returnValue = r;
+			console.log('Result di:', r);
+		}
+	})
+	.catch(console.log);
+
+	  
+/*	  
     promptResponse = null
     var promptWindow = new BrowserWindow({
       width: 200,
@@ -56,7 +84,7 @@ app.on("ready", () => {
       alwaysOnTop: true,
       frame: false
     })
-    arg.val = arg.val || ''
+    arg.val = arg.val || '';
     const promptHtml = '<label for="val">' + arg.title + '</label>\
     <input id="val" value="' + arg.val + '" autofocus />\
     <button onclick="require(\'electron\').ipcRenderer.send(\'prompt-response\', document.getElementById(\'val\').value);window.close()">Ok</button>\
@@ -68,17 +96,15 @@ app.on("ready", () => {
       eventRet.returnValue = promptResponse
       promptWindow = null
     })
+*/	
   })
-  
+/*  
   ipcMain.on('prompt-response', function(event, arg) 
   {
     if (arg === ''){ arg = null }
     promptResponse = arg
   })  
-  
-  
-  
-  
+*/
 });
 
 // Quit when all windows are closed.
