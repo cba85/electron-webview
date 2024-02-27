@@ -5,6 +5,6 @@ ipcMain.handle("print", async (event, arg) => {
   printWindow.loadURL(arg);
 
   printWindow.webContents.on("did-finish-load", () => {
-    printWindow.webContents.print();
+    printWindow.webContents.print({});
   });
 });
