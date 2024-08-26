@@ -1,6 +1,6 @@
 # Electron webview
 
-> Uses [Electron 31](https://releases.electronjs.org/release/v31.0.0) (2024-06-10)
+> Uses [Electron 32](https://releases.electronjs.org/release/v32.0.0) (2024-08-19)
 
 This is a simple Electron application to create a webview.
 
